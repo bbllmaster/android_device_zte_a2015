@@ -20,15 +20,27 @@ Stock package: `20161226142336257.zip` → `update.zip`
 | Fingerprint | `ZTE/P894A02/msm8994:6.0.1/MMB29M/zte.20161216.133146:user/release-keys` |
 | Product | `P894A02`, model `ZTE A2015` |
 | Board | `msm8994` |
-| Display | 1920x1080, `ro.sf.lcd_density=640` |
+| Display | 1440x2560, `ro.sf.lcd_density=640` (2K 尊享版) |
+| Storage | 128 GB eMMC (`mmcblk0` = 122138624 KiB) |
 | System tree | 2.84 GiB |
 | Boot image | 22.9 MB |
 | Stock fstab | `bootdevice/by-name/{system,cache,userdata,persist,modem,bluetooth}` |
 
-The stock `boot.img` contains 42 appended DTBs. The A2015 candidate is
-`MSM8994v2.1 + PMI8994 + PM8004 CDP` (`qcom,board-id = <1 0>`), which contains
-the NT35596 1080p panels and Synaptics DSX touch node. Confirm the live board ID
-on the device before relying on it.
+Partitions measured on the device:
+
+| Partition | KiB | Bytes |
+|---|---|---|
+| `mmcblk0` | 122138624 | 125,069,950,976 |
+| `mmcblk0p23` (system) | 3145728 | 3,221,225,472 |
+| `mmcblk0p24` (cache) | 307200 | 314,572,800 |
+| `mmcblk0p25` (boot) | 32768 | 33,554,432 |
+| `mmcblk0p32` (userdata) | 117813231 | 120,640,748,544 |
+
+The stock `boot.img` contains 42 appended DTBs. The A2015 entry is
+`MSM8994v2.1 + PMI8994 + PM8004 CDP` (`qcom,board-id = <1 0>`); it carries the
+**r63419 Sharp WQHD dual-DSI** panel nodes and the Synaptics DSX touch node,
+which matches the 1440x2560 panel on this unit. ZTE's `msm8994-cdp.dtsi` already
+selects r63419 as `qcom,dsi-pref-prim-pan`, so the kernel defaults to 2K.
 
 ## Status
 
@@ -44,17 +56,17 @@ Done:
 
 Remaining:
 
-- Exact partition sizes, especially userdata/cache (from the device)
-- Live board ID / DTB confirmation
+- `by-name` mapping for boot/recovery (verify `mmcblk0p25` is `boot`)
+- Live board ID / DTB confirmation (`/proc/device-tree/model`)
+- Bootloader unlock state
 - Vendor destination review (firmware paths, HAL relocation)
 - Full ROM build on a 400GB+ host
 
 ## Required inputs
 
-1. `adb shell cat /proc/partitions` (or `ls -l /dev/block/bootdevice/by-name`)
-2. `adb shell getprop | grep -E 'ro.boot|board'`
-3. `adb shell cat /proc/device-tree/model`
-4. `fastboot oem device-info` output (bootloader unlock state)
+1. `adb shell ls -l /dev/block/bootdevice/by-name`
+2. `adb shell cat /proc/device-tree/model`
+3. `fastboot oem device-info` output (bootloader unlock state)
 
 ## Build
 
@@ -99,10 +111,10 @@ in the kernel repository README.
 
 ## Known gaps
 
-- Partition sizes in `BoardConfig.mk` are still estimates; userdata and cache
-  must come from the device.
 - Vendor blobs are not populated. The stock `system/vendor` is 233 MiB and the
   HAL modules are in `system/lib/hw` / `system/lib64/hw`.
-- The 2K panel variant is not present in this B16 package; this package is 1080p.
+- `system` is exactly 3 GiB. A LineageOS 22.2 arm64 build with vendor inside
+  `/system/vendor` may be tight; if the image overflows, trim packages or drop
+  the unused 64-bit HALs.
 - Android 15 on a 3.10 kernel needs the same legacy backports used by the
   OnePlus 2 22.2 port (memfd, binder, seccomp, etc.).

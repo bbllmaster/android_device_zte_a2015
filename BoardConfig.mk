@@ -66,7 +66,7 @@ QCOM_BT_USE_BTNV := true
 MALLOC_SVELTE_FOR_LIBC32 := true
 
 # Display
-# Stock P894A02 build.prop uses ro.sf.lcd_density=640.
+# P894A02 尊享版: 1440x2560, ro.sf.lcd_density=640, r63419 Sharp WQHD dual DSI.
 TARGET_SCREEN_DENSITY := 640
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_HWC2 := true
@@ -84,14 +84,18 @@ TARGET_USES_ION := true
 TARGET_HAS_MEMFD_BACKPORT := true
 
 # Partitions
-# From the stock B16 package: system tree is 2.84 GiB, boot.img is 22.9 MB.
-# TODO: replace userdata/cache and confirm system from /proc/partitions.
+# Measured on the device (P894A02, 128 GB "尊享版"):
+#   mmcblk0p23  3145728 KB  system
+#   mmcblk0p24   307200 KB  cache
+#   mmcblk0p25    32768 KB  boot
+#   mmcblk0p32 117813231 KB  userdata
+# Block counts are 1 KiB units, so multiply by 1024.
 BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
+BOARD_CACHEIMAGE_PARTITION_SIZE := 314572800
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 12884901888
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 120640748544
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_ROOT_EXTRA_FOLDERS := firmware bt_firmware persist
 
