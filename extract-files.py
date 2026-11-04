@@ -35,6 +35,9 @@ def read_list(path):
 def dest_path(src):
     if src.startswith("system/vendor/"):
         return "$(TARGET_COPY_OUT_VENDOR)/" + src[len("system/vendor/"):]
+    # Kernel firmware loader looks in /vendor/firmware, not /vendor/etc/firmware.
+    if src.startswith("system/etc/firmware/"):
+        return "$(TARGET_COPY_OUT_VENDOR)/firmware/" + src[len("system/etc/firmware/"):]
     if src.startswith("system/"):
         return "$(TARGET_COPY_OUT_VENDOR)/" + src[len("system/"):]
     return "$(TARGET_COPY_OUT_VENDOR)/" + src
