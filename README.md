@@ -32,8 +32,22 @@ on the device before relying on it.
 
 ## Status
 
-Initial scaffold, not a booting port yet. Partition sizes and the exact board
-DTB still need confirmation.
+Pre-build scaffold is in place; not booting yet.
+
+Done:
+
+- Device tree: product makefiles, `BoardConfig.mk`, `fstab.qcom`
+- Init scripts: `init.qcom.rc`, `init.qcom.usb.rc`, `init.target.rc`, `ueventd.qcom.rc`
+- Kernel: ZTE 3.10.84 source committed on `lineage-22.2`; GitHub Actions kernel build is green
+- Vendor: `extract-files.py` + `proprietary-files.txt`; 80 blobs (83 MiB) extracted locally
+- Bootstrap: `tools/setup-lineage.sh`
+
+Remaining:
+
+- Exact partition sizes, especially userdata/cache (from the device)
+- Live board ID / DTB confirmation
+- Vendor destination review (firmware paths, HAL relocation)
+- Full ROM build on a 400GB+ host
 
 ## Required inputs
 
@@ -44,20 +58,31 @@ DTB still need confirmation.
 
 ## Build
 
-Place the three repositories at:
+Quick start:
 
+```bash
+./tools/setup-lineage.sh ~/android/lineage
 ```
-device/zte/a2015          -> android_device_zte_a2015
-vendor/zte/a2015          -> android_vendor_zte_a2015
-kernel/zte/msm8994        -> android_kernel_zte_msm8994
+
+The script initializes LineageOS 22.2, clones the device repo, installs the
+local manifest, syncs the three repositories, and runs `breakfast a2015`.
+
+Vendor blobs must be extracted before building:
+
+```bash
+cd device/zte/a2015
+./extract-files.py --rom /path/to/update.zip --vendor ../../../vendor/zte/a2015
 ```
+
+`proprietary/` is gitignored; the blobs stay local.
 
 Then:
 
 ```bash
+cd ~/android/lineage
 source build/envsetup.sh
-breakfast a2015
-brunch a2015
+mka bootimage   # first milestone
+brunch a2015    # full ROM
 ```
 
 Output:

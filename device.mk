@@ -48,4 +48,9 @@ PRODUCT_COPY_FILES += \
 # Do not copy telephony feature permissions. This is a Wi-Fi-only build.
 
 # Packages
-# TODO: add device-specific HALs / init library here once the vendor tree is populated.
+PRODUCT_PACKAGES += \
+    fstab.qcom \
+    init.qcom.rc \
+    init.qcom.usb.rc \
+    init.target.rc \
+    ueventd.qcom.rc

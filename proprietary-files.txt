@@ -49,7 +49,7 @@ system/etc/firmware/leia_pm4_470.fw
 system/lib/hw/audio.primary.msm8994.so
 system/lib64/hw/audio.primary.msm8994.so
 system/lib/hw/camera.msm8994.so
-system/lib64/hw/camera.msm8994.so
+-system/lib64/hw/camera.msm8994.so
 system/lib/hw/copybit.msm8994.so
 system/lib64/hw/copybit.msm8994.so
 system/lib/hw/gralloc.msm8994.so
@@ -65,7 +65,7 @@ system/lib64/hw/sensors.msm8994.so
 system/lib/hw/fingerprint.msm8994.so
 system/lib64/hw/fingerprint.msm8994.so
 system/vendor/lib/hw/sound_trigger.primary.msm8994.so
-system/vendor/lib64/hw/sound_trigger.primary.msm8994.so
+-system/vendor/lib64/hw/sound_trigger.primary.msm8994.so
 system/vendor/lib/hw/gatekeeper.msm8994.so
 system/vendor/lib64/hw/gatekeeper.msm8994.so
 system/vendor/lib/hw/keystore.msm8994.so
