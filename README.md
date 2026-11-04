@@ -1,6 +1,7 @@
 # LineageOS 22.2 for ZTE Axon A2015 (Wi-Fi-only)
 
-Target: ZTE A2015 / A2015U (MSM8994, Snapdragon 810), LineageOS 22.2, **Wi-Fi-only**.
+Target: ZTE A2015 / P894A02 (MSM8994, Snapdragon 810), LineageOS 22.2,
+**Wi-Fi-only**.
 
 The device is treated as a small Wi-Fi tablet:
 
@@ -8,16 +9,37 @@ The device is treated as a small Wi-Fi tablet:
 - RIL / telephony is intentionally disabled (`ro.radio.noril=1`, `ro.carrier=wifi-only`).
 - Wi-Fi, Bluetooth, display, touch, audio, charging are the priorities.
 
+## Confirmed from the stock ROM
+
+Stock package: `20161226142336257.zip` → `update.zip`
+
+| Item | Value |
+|---|---|
+| Build | `ZTE_A2015V1.0.0B16_M` |
+| Android | 6.0.1 / MMB29M |
+| Fingerprint | `ZTE/P894A02/msm8994:6.0.1/MMB29M/zte.20161216.133146:user/release-keys` |
+| Product | `P894A02`, model `ZTE A2015` |
+| Board | `msm8994` |
+| Display | 1920x1080, `ro.sf.lcd_density=640` |
+| System tree | 2.84 GiB |
+| Boot image | 22.9 MB |
+| Stock fstab | `bootdevice/by-name/{system,cache,userdata,persist,modem,bluetooth}` |
+
+The stock `boot.img` contains 42 appended DTBs. The A2015 candidate is
+`MSM8994v2.1 + PMI8994 + PM8004 CDP` (`qcom,board-id = <1 0>`), which contains
+the NT35596 1080p panels and Synaptics DSX touch node. Confirm the live board ID
+on the device before relying on it.
+
 ## Status
 
-This is an initial scaffold, not a booting port yet. Partition sizes and the
-fstab by-name path are placeholders and must be filled from the actual device.
+Initial scaffold, not a booting port yet. Partition sizes and the exact board
+DTB still need confirmation.
 
 ## Required inputs
 
 1. `adb shell cat /proc/partitions` (or `ls -l /dev/block/bootdevice/by-name`)
-2. `adb shell wm size` (1080x1920 or 1440x2560)
-3. Stock ROM for the exact firmware version (vendor blobs + firmware)
+2. `adb shell getprop | grep -E 'ro.boot|board'`
+3. `adb shell cat /proc/device-tree/model`
 4. `fastboot oem device-info` output (bootloader unlock state)
 
 ## Build
@@ -52,10 +74,10 @@ in the kernel repository README.
 
 ## Known gaps
 
-- Partition sizes in `BoardConfig.mk` are placeholders.
-- `fstab.qcom` uses the generic `bootdevice/by-name` path; verify on device.
-- Vendor blobs are not populated.
-- The A2015 panel is NT35596 (1080p) on the version visible in ZTE's kernel
-  source; the 2K variant needs confirmation.
+- Partition sizes in `BoardConfig.mk` are still estimates; userdata and cache
+  must come from the device.
+- Vendor blobs are not populated. The stock `system/vendor` is 233 MiB and the
+  HAL modules are in `system/lib/hw` / `system/lib64/hw`.
+- The 2K panel variant is not present in this B16 package; this package is 1080p.
 - Android 15 on a 3.10 kernel needs the same legacy backports used by the
   OnePlus 2 22.2 port (memfd, binder, seccomp, etc.).

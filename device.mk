@@ -16,12 +16,13 @@ PRODUCT_SOONG_NAMESPACES += \
 # Wi-Fi-only device: do not start the cellular radio stack.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.carrier=wifi-only \
-    ro.radio.noril=1
+    ro.radio.noril=1 \
+    qemu.hw.mainkeys=1
 
 # Display
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
-PRODUCT_CHARACTERISTICS := tablet
+PRODUCT_CHARACTERISTICS := default
 
 # Permissions
 PRODUCT_COPY_FILES += \

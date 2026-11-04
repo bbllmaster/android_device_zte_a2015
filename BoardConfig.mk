@@ -27,10 +27,11 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-3 loop.max_part=7 androidboot.init_fatal_reboot_target=recovery
+BOARD_KERNEL_CMDLINE := no_console_suspend androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 msm-poweroff.download_mode=0
 # For bring-up only:
 # BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET := 0x01000000
@@ -41,7 +42,7 @@ TARGET_KERNEL_CONFIG := msm8994_defconfig
 TARGET_KERNEL_CLANG_COMPILE := false
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := a2015
+TARGET_OTA_ASSERT_DEVICE := a2015,msm8994
 
 # Audio
 AUDIO_FEATURE_ENABLED_ACDB_LICENSE := true
@@ -65,7 +66,8 @@ QCOM_BT_USE_BTNV := true
 MALLOC_SVELTE_FOR_LIBC32 := true
 
 # Display
-TARGET_SCREEN_DENSITY := 480
+# Stock P894A02 build.prop uses ro.sf.lcd_density=640.
+TARGET_SCREEN_DENSITY := 640
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_HWC2 := true
 TARGET_DISABLE_POSTRENDER_CLEANUP := true
@@ -82,13 +84,13 @@ TARGET_USES_ION := true
 TARGET_HAS_MEMFD_BACKPORT := true
 
 # Partitions
-# TODO: replace every size below with the values from the device's partition
-# table (`adb shell cat /proc/partitions` or by-name listing).
+# From the stock B16 package: system tree is 2.84 GiB, boot.img is 22.9 MB.
+# TODO: replace userdata/cache and confirm system from /proc/partitions.
 BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2684354560
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 12884901888
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_ROOT_EXTRA_FOLDERS := firmware bt_firmware persist

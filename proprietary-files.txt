@@ -1,13 +1,101 @@
-# List of proprietary files to extract from the stock ROM.
-# Format: one path per line, relative to the system/vendor root.
-# Prefix a line with '-' to mark it optional.
+# Proprietary files extracted from the ZTE A2015 B16 stock ROM.
+# Paths are relative to the Android source root.
 #
-# TODO: populate after extracting the A2015 stock ROM.
-# Do NOT add RIL/telephony blobs: this is a Wi-Fi-only build.
+# TODO: run extract-files.py against the stock ROM/device to generate the
+# complete list. The entries below are the groups needed for first boot.
 #
-# Likely groups:
-# - vendor/lib*/libwcnss*.so, libqcbassboost, libcsd-client (Wi-Fi/BT)
-# - vendor/lib*/libOmx*, libmmcamera* (camera, optional)
-# - vendor/lib*/libAK*, libwcd* (audio)
-# - vendor/lib*/libadsprpc, libsensor* (sensors)
-# - vendor/etc/firmware/wlan, vendor/etc/firmware/bt
+# Do NOT add RIL / telephony blobs: this is a Wi-Fi-only build.
+
+# --- Wi-Fi / Bluetooth ---
+system/etc/wifi/WCNSS_qcom_cfg.ini
+system/etc/wifi/WCNSS_qcom_wlan_nv.bin
+system/etc/wifi/wpa_supplicant.conf
+system/etc/wifi/wpa_supplicant_overlay.conf
+system/etc/wifi/p2p_supplicant_overlay.conf
+system/etc/firmware/wlan/qca_cld/WCNSS_cfg.dat
+system/etc/firmware/nvm_tlv.bin
+system/etc/firmware/nvm_tlv_1.3.bin
+system/etc/firmware/nvm_tlv_2.1.bin
+system/etc/firmware/nvm_tlv_3.0.bin
+system/etc/firmware/nvm_tlv_3.2.bin
+system/etc/firmware/rampatch_tlv.img
+system/etc/firmware/rampatch_tlv_1.3.tlv
+system/etc/firmware/rampatch_tlv_2.1.tlv
+system/etc/firmware/rampatch_tlv_3.0.tlv
+system/etc/firmware/rampatch_tlv_3.2.tlv
+system/etc/bluetooth/bt_stack.conf
+system/etc/bluetooth/bt_did.conf
+system/etc/bluetooth/auto_pair_devlist.conf
+
+# --- Display / GPU ---
+system/vendor/lib/libgsl.so
+system/vendor/lib64/libgsl.so
+system/vendor/lib/libllvm-glnext.so
+system/vendor/lib64/libllvm-glnext.so
+system/vendor/lib/libllvm-qcom.so
+system/vendor/lib64/libllvm-qcom.so
+system/vendor/lib/libC2D2.so
+system/vendor/lib64/libC2D2.so
+system/vendor/lib/libRSDriver_adreno.so
+system/vendor/lib64/libRSDriver_adreno.so
+system/vendor/lib/libadreno_utils.so
+system/vendor/lib64/libadreno_utils.so
+system/etc/firmware/a420_pfp.fw
+system/etc/firmware/a420_pm4.fw
+system/etc/firmware/leia_pfp_470.fw
+system/etc/firmware/leia_pm4_470.fw
+
+# --- HAL modules ---
+system/lib/hw/audio.primary.msm8994.so
+system/lib64/hw/audio.primary.msm8994.so
+system/lib/hw/camera.msm8994.so
+system/lib64/hw/camera.msm8994.so
+system/lib/hw/copybit.msm8994.so
+system/lib64/hw/copybit.msm8994.so
+system/lib/hw/gralloc.msm8994.so
+system/lib64/hw/gralloc.msm8994.so
+system/lib/hw/hwcomposer.msm8994.so
+system/lib64/hw/hwcomposer.msm8994.so
+system/lib/hw/lights.msm8994.so
+system/lib64/hw/lights.msm8994.so
+system/lib/hw/memtrack.msm8994.so
+system/lib64/hw/memtrack.msm8994.so
+system/lib/hw/sensors.msm8994.so
+system/lib64/hw/sensors.msm8994.so
+system/lib/hw/fingerprint.msm8994.so
+system/lib64/hw/fingerprint.msm8994.so
+system/vendor/lib/hw/sound_trigger.primary.msm8994.so
+system/vendor/lib64/hw/sound_trigger.primary.msm8994.so
+system/vendor/lib/hw/gatekeeper.msm8994.so
+system/vendor/lib64/hw/gatekeeper.msm8994.so
+system/vendor/lib/hw/keystore.msm8994.so
+system/vendor/lib64/hw/keystore.msm8994.so
+
+# --- Audio ---
+system/vendor/lib/libaudioalsa.so
+system/vendor/lib64/libaudioalsa.so
+system/etc/audio_effects.conf
+system/etc/audio_policy.conf
+system/etc/audio_platform_info.xml
+system/etc/mixer_paths.xml
+system/etc/acdbdata/MTP/MTP_General_cal.acdb
+system/etc/acdbdata/MTP/MTP_Speaker_cal.acdb
+system/etc/acdbdata/MTP/MTP_Headset_cal.acdb
+system/etc/acdbdata/MTP/MTP_Handset_cal.acdb
+system/etc/firmware/ak4961_pram_wide.bin
+system/etc/firmware/ak4961_pram_narrow.bin
+system/etc/firmware/ak4961_cram_wide_hp.bin
+system/etc/firmware/ak4961_cram_wide_hs.bin
+system/etc/firmware/ak4961_cram_wide_hf.bin
+
+# --- Camera (optional) ---
+system/bin/mm-qcamera-daemon
+-system/vendor/lib/libmmcamera2_c2d_module.so
+-system/vendor/lib/libmmcamera2_isp_modules.so
+-system/vendor/lib/libmmcamera_imx214.so
+
+# --- Sensors / NFC (optional) ---
+system/bin/sensors.qcom
+system/etc/sensors/sensor_def_qcomdev.conf
+system/etc/sensors/hals.conf
+system/vendor/firmware/libpn547_fw.so
