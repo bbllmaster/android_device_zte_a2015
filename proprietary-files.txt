@@ -1,0 +1,13 @@
+# List of proprietary files to extract from the stock ROM.
+# Format: one path per line, relative to the system/vendor root.
+# Prefix a line with '-' to mark it optional.
+#
+# TODO: populate after extracting the A2015 stock ROM.
+# Do NOT add RIL/telephony blobs: this is a Wi-Fi-only build.
+#
+# Likely groups:
+# - vendor/lib*/libwcnss*.so, libqcbassboost, libcsd-client (Wi-Fi/BT)
+# - vendor/lib*/libOmx*, libmmcamera* (camera, optional)
+# - vendor/lib*/libAK*, libwcd* (audio)
+# - vendor/lib*/libadsprpc, libsensor* (sensors)
+# - vendor/etc/firmware/wlan, vendor/etc/firmware/bt

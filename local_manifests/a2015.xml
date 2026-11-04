@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <project name="bbllmaster/android_device_zte_a2015"
+           path="device/zte/a2015"
+           remote="github"
+           revision="lineage-22.2" />
+  <project name="bbllmaster/android_vendor_zte_a2015"
+           path="vendor/zte/a2015"
+           remote="github"
+           revision="lineage-22.2" />
+  <project name="bbllmaster/android_kernel_zte_msm8994"
+           path="kernel/zte/msm8994"
+           remote="github"
+           revision="lineage-22.2" />
+</manifest>

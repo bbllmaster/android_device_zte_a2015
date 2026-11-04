@@ -1,0 +1,6 @@
+*.apk
+*.img
+*.zip
+out/
+.vscode/
+*.swp
